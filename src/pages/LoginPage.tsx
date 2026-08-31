@@ -29,7 +29,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   if (token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/admin" replace />;
   }
 
   const onSubmit = async (event: FormEvent) => {

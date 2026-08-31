@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import brandLogo from '../assets/logo.png';
 import heroBg from '../assets/landing_hero.jpg';
 import { api } from '../lib/api';
+import { useAuthStore } from '../stores/authStore';
 import { ShoppingBag, ArrowRight, ShieldCheck, Truck, Store, Smartphone, Star, PlayCircle, AppWindow } from 'lucide-react';
 
 type Category = {
@@ -19,6 +20,7 @@ type Product = {
 };
 
 const LandingPage = () => {
+  const token = useAuthStore(state => state.token);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ const LandingPage = () => {
           <img src={brandLogo} alt="Haritgraam Logo" style={{ width: '164px', objectFit: 'cover' }} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <a href="/login" style={{
+          <a href={token ? "/admin" : "/login"} style={{
             padding: '0.65rem 1.5rem',
             borderRadius: '999px',
             backgroundColor: '#d97706',
@@ -64,7 +66,7 @@ const LandingPage = () => {
             boxShadow: '0 4px 12px rgba(217, 119, 6, 0.15)',
             transition: 'all 0.2s'
           }}>
-            Merchant Panel
+            {token ? "Admin Dashboard" : "Merchant Panel"}
           </a>
         </div>
       </header>
