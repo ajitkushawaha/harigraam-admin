@@ -1,4 +1,4 @@
-import {Image, Package, ReceiptText, Users} from 'lucide-react';
+import {Image, Package, ReceiptText, Users, Download} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {api} from '../lib/api';
 import {useAuthStore} from '../stores/authStore';
@@ -87,14 +87,20 @@ const DashboardPage = () => {
 
   return (
     <section className="page-stack">
-      <div className="hero-card">
-        <p className="eyebrow">Overview</p>
-        <h2>{isVendor ? `${vendor?.name || 'Vendor'} dashboard` : 'Store operations at a glance'}</h2>
-        <p>
-          {isVendor
-            ? 'Monitor your vendor orders, product catalog, branches and delivery team from one focused workspace.'
-            : 'Monitor live store content, active themes, order volume and catalog health from one focused workspace.'}
-        </p>
+      <div className="hero-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ flex: 1, minWidth: '280px' }}>
+          <p className="eyebrow">Overview</p>
+          <h2>{isVendor ? `${vendor?.name || 'Vendor'} dashboard` : 'Store operations at a glance'}</h2>
+          <p>
+            {isVendor
+              ? 'Monitor your vendor orders, product catalog, branches and delivery team from one focused workspace.'
+              : 'Monitor live store content, active themes, order volume and catalog health from one focused workspace.'}
+          </p>
+        </div>
+        <a href="/Haritgram.apk" download="Haritgram.apk" className="primary-button" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+          <Download size={18} />
+          Download App
+        </a>
       </div>
 
       <div className="stats-grid">
