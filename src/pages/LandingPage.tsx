@@ -126,7 +126,7 @@ const LandingPage = () => {
 
           {/* App download CTA row */}
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="#" style={{
+            <a href="/haritgram-app.apk" download="haritgram-app.apk" style={{
               display: 'flex',
               alignItems: 'center',
               gap: '0.75rem',
