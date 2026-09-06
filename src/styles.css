@@ -150,6 +150,8 @@ select {
   object-fit: contain;
   background: transparent;
   border-radius: 6px;
+  width: 150px !important;
+
 }
 
 .brand-title,

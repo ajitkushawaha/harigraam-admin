@@ -4,6 +4,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import SuperAdminRoute from '../components/SuperAdminRoute';
 import DashboardPage from '../pages/DashboardPage';
 import ThemesPage from '../pages/ThemesPage';
+import NotificationSettingsPage from '../pages/NotificationSettingsPage';
 import BannersPage from '../pages/BannersPage';
 import VendorsPage from '../pages/VendorsPage';
 import LoginPage from '../pages/LoginPage';
@@ -17,6 +18,7 @@ import CategoriesPage from '../pages/CategoriesPage';
 import CustomersPage from '../pages/CustomersPage';
 import PaymentsPage from '../pages/PaymentsPage';
 import AdminUsersPage from '../pages/AdminUsersPage';
+import CouponsPage from '../pages/CouponsPage';
 
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
 import AccountDeletePage from '../pages/AccountDeletePage';
@@ -39,6 +41,7 @@ const App = () => {
           <Route path="branches" element={<BranchesPage />} />
           <Route path="delivery-partners" element={<DeliveryPartnersPage />} />
           <Route path="banners" element={<BannersPage />} />
+          <Route path="coupons" element={<CouponsPage />} />
           <Route element={<SuperAdminRoute />}>
             <Route path="categories" element={<CategoriesPage />} />
             <Route path="customers" element={<CustomersPage />} />
@@ -46,6 +49,7 @@ const App = () => {
             <Route path="admin-users" element={<AdminUsersPage />} />
             <Route path="themes" element={<ThemesPage />} />
             <Route path="vendors" element={<VendorsPage />} />
+            <Route path="settings/notifications" element={<NotificationSettingsPage />} />
           </Route>
         </Route>
       </Route>

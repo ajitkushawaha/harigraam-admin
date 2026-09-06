@@ -15,24 +15,53 @@ import {
   UserCircle,
   Menu,
   X,
+  Settings,
+  Ticket,
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import brandLogo from '../assets/logo.png';
 
-const navItems = [
-  { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
-  { label: 'Orders', path: '/orders', icon: ReceiptText },
-  { label: 'Products', path: '/products', icon: Package },
-  { label: 'Branches', path: '/branches', icon: MapPin },
-  { label: 'Delivery', path: '/delivery-partners', icon: Truck },
-  { label: 'Categories', path: '/categories', icon: Tags, superAdminOnly: true },
-  { label: 'Customers', path: '/customers', icon: Users, superAdminOnly: true },
-  { label: 'Payments', path: '/payments', icon: WalletCards, superAdminOnly: true },
-  { label: 'Admin Users', path: '/admin-users', icon: KeyRound, superAdminOnly: true },
-  { label: 'Themes', path: '/themes', icon: Paintbrush, superAdminOnly: true },
-  { label: 'Banners', path: '/banners', icon: Image },
-  { label: 'Vendors', path: '/vendors', icon: Store, superAdminOnly: true },
+const navGroups = [
+  {
+    section: 'Overview',
+    items: [
+      { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    ]
+  },
+  {
+    section: 'Business Structure',
+    items: [
+      { label: 'Vendors (Brands)', path: '/vendors', icon: Store, superAdminOnly: true },
+      { label: 'Branches (Stores)', path: '/branches', icon: MapPin },
+    ]
+  },
+  {
+    section: 'Catalog',
+    items: [
+      { label: 'Categories', path: '/categories', icon: Tags, superAdminOnly: true },
+      { label: 'Products', path: '/products', icon: Package },
+    ]
+  },
+  {
+    section: 'Operations',
+    items: [
+      { label: 'Orders', path: '/orders', icon: ReceiptText },
+      { label: 'Delivery Partners', path: '/delivery-partners', icon: Truck },
+      { label: 'Coupons', path: '/coupons', icon: Ticket },
+      { label: 'Customers', path: '/customers', icon: Users, superAdminOnly: true },
+      { label: 'Payments', path: '/payments', icon: WalletCards, superAdminOnly: true },
+    ]
+  },
+  {
+    section: 'Settings & UI',
+    items: [
+      { label: 'Banners', path: '/banners', icon: Image },
+      { label: 'Themes', path: '/themes', icon: Paintbrush, superAdminOnly: true },
+      { label: 'Admin Users', path: '/admin-users', icon: KeyRound, superAdminOnly: true },
+      { label: 'Notifications', path: '/settings/notifications', icon: Settings, superAdminOnly: true },
+    ]
+  }
 ];
 
 const DashboardLayout = () => {
@@ -76,7 +105,7 @@ const DashboardLayout = () => {
 
       <aside className={`sidebar ${mobileMenuOpen ? 'sidebar-open' : ''}`}>
         <div className="brand-block">
-          <img className="brand-mark brand-logo" src={brandLogo} alt="Haritgraam" />
+          {/* <img className="brand-mark brand-logo" src={brandLogo} alt="Haritgraam" /> */}
           <div style={{ flex: 1 }}>
             <p className="brand-title">Haritgraam</p>
             <p className="brand-subtitle">Admin Console</p>
@@ -90,24 +119,30 @@ const DashboardLayout = () => {
         </div>
 
         <nav className="sidebar-nav">
-          <p className="nav-section-label">Main</p>
-          {navItems
-            .filter(item => !item.superAdminOnly || admin?.role === 'super_admin')
-            .map(item => {
-              const Icon = item.icon;
-              return (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  end={item.path === '/admin'}
-                  className={({ isActive }) =>
-                    `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
-                  }>
-                  <Icon size={18} />
-                  <span>{item.label}</span>
-                </NavLink>
-              );
-            })}
+          {navGroups.map(group => {
+            const visibleItems = group.items.filter(item => !item.superAdminOnly || admin?.role === 'super_admin');
+            if (visibleItems.length === 0) return null;
+            return (
+              <div key={group.section} style={{ marginBottom: 16 }}>
+                <p className="nav-section-label">{group.section}</p>
+                {visibleItems.map(item => {
+                  const Icon = item.icon;
+                  return (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      end={item.path === '/admin'}
+                      className={({ isActive }) =>
+                        `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
+                      }>
+                      <Icon size={18} />
+                      <span>{item.label}</span>
+                    </NavLink>
+                  );
+                })}
+              </div>
+            );
+          })}
         </nav>
       </aside>
 
@@ -121,7 +156,23 @@ const DashboardLayout = () => {
               >
                 <Menu size={28} color="#fff" />
               </button>
-              <h1>Haritgraam</h1>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {admin?.role && (
+                  <span style={{
+                    marginLeft: 12,
+                    padding: '4px 8px',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    borderRadius: 6,
+                    fontSize: 12,
+                  textTransform: 'uppercase',
+                  fontWeight: 600,
+                  letterSpacing: 0.5
+                }}>
+                  {admin.role.replace('_', ' ')}
+                </span>
+              )}
+              </div>
+              
             </div>
             <div className="topbar-actions">
 
