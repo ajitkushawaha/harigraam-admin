@@ -13,9 +13,19 @@ type Coupon = {
   vendorId?: string;
 };
 
-const emptyForm = {
+type CouponForm = {
+  code: string;
+  discountType: 'percentage' | 'flat';
+  discountValue: string;
+  minOrderValue: string;
+  maxDiscountAmount: string;
+  isActive: boolean;
+  expiryDate: string;
+};
+
+const emptyForm: CouponForm = {
   code: '',
-  discountType: 'flat' as const,
+  discountType: 'flat',
   discountValue: '',
   minOrderValue: '',
   maxDiscountAmount: '',
